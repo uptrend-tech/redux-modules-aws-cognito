@@ -1,0 +1,22 @@
+{
+  "license": "BSD",
+  "author": "brandon",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:omt-tech/redux-modules-aws-cognito.git"
+  },
+  "keywords": [
+    "aws",
+    "cognito",
+    "redux",
+    "redux-saga",
+    "redux-modules"
+  ],
+  "scripts": {
+    "test": "node test"
+  },
+  "main": "index.js",
+  "description": "AWS Cognito for React apps using redux and redux-saga.",
+  "version": "0.1.0",
+  "name": "redux-modules-aws-cognito"
+}
