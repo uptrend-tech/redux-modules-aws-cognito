@@ -8,9 +8,9 @@ export type State = {
   +info: {
     +user?: {},
     +signInUserSession?: {
-      +idToken: { jwtToken: string },
-      +refreshToken: { token: string },
-      +accessToken: { jwtToken: string },
+      +idToken?: { jwtToken: string },
+      +refreshToken?: { token: string },
+      +accessToken?: { jwtToken: string },
     },
   },
   +error: {
@@ -29,6 +29,11 @@ export type State = {
 export type SetStatePayload = {
   +info?: {
     +user?: {},
+    +signInUserSession?: {
+      +idToken?: { jwtToken: string },
+      +refreshToken?: { token: string },
+      +accessToken?: { jwtToken: string },
+    },
   },
   +error?: {
     +message?: string,

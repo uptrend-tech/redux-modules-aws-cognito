@@ -58,7 +58,8 @@ function* signedIn(action: SignedInAction) {
 
 function* signUp(action: SignUpAction) {
   try {
-    yield call(authRegister, action.payload.email, action.payload.password);
+    const { email, password, locale, phoneNumber } = action.payload;
+    yield call(authRegister, email, password, locale, phoneNumber);
     yield put({
       type: 'AWS_COGNITO_SET_STATE',
       payload: {

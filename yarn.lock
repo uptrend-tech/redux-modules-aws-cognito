@@ -235,9 +235,9 @@ atob@^2.0.0:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.0.3.tgz#19c7a760473774468f20b2d2d03372ad7d4cbf5d"
 
-aws-cognito-promises@^1.0.4:
+aws-cognito-promises@omt-tech/aws-cognito-promises:
   version "1.0.4"
-  resolved "https://registry.yarnpkg.com/aws-cognito-promises/-/aws-cognito-promises-1.0.4.tgz#e8a0f481e79cc527a6bfbb39755176eb20675a9b"
+  resolved "https://codeload.github.com/omt-tech/aws-cognito-promises/tar.gz/9acbfe9b4cc47ae84821d9b321099eb1c5632ba2"
   dependencies:
     amazon-cognito-identity-js "^1.19.0"
     aws-sdk "^2.94.0"
