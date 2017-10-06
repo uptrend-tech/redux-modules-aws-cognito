@@ -34,4 +34,4 @@ Returns **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 ## License
 
-MIT © [Brandon Orther](http://omt.tech/)
+MIT © [OMT Tech](http://omt.tech/)

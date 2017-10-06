@@ -1,0 +1,96 @@
+---
+parser:
+  babel-eslint
+
+extends:
+  - plugin:flowtype/recommended
+  - prettier
+  - prettier/flowtype
+
+plugins:
+  - flowtype
+  - flowtype-errors
+  - import
+  - prettier
+  - redux-saga
+
+env:
+  jest: true
+  # browser: true
+  # node: true
+
+parserOptions:
+  ecmaVersion: 2016
+  sourceType: module
+
+rules:
+  eol-last: 0
+  flowtype-errors/show-errors: 2
+  flowtype/define-flow-type: 2
+  new-cap: 0
+  no-alert: 0
+  no-new: 0
+  no-trailing-spaces: 0
+  no-undef: 2
+  no-unused-vars: 1
+  strict: 0
+
+  import/no-named-as-default: 0
+  import/order:
+    - error
+    - newlines-between: ignore
+      groups:
+        - builtin
+        - external
+        - internal
+        - parent
+        - sibling
+        - index
+
+  redux-saga/yield-effects: error
+  redux-saga/no-yield-in-race: error
+  # TODO: re-enable this after we get code cleaned up
+  # redux-saga/no-unhandled-errors: error
+
+  prettier/prettier:
+    - error
+    - trailingComma: all
+      singleQuote: true
+      printWidth: 80
+
+overrides:
+  # # disable errors in old code (new ARc.js code should be tested)
+  # - files:
+  #     - "src/js/api/**/*.js"
+  #     - "src/js/components/old/**/*.js"
+  #     - "src/js/layouts/**/*.js"
+  #     - "src/js/routes/**/*.js"
+  #   rules:
+  #     flowtype/no-types-missing-file-annotation: warn
+  #     # import/named: warn
+  #     # import/namespace: warn
+  #     # import/no-unresolved: warn
+  #     # import/order: off
+  #     no-undef: off
+
+  # testing overrides
+  - files: "test/**/*.test.js"
+    rules:
+      # disable these rules otherwise autoformat adds yield in tests
+      redux-saga/yield-effects: off
+      redux-saga/no-yield-in-race: off
+      redux-saga/no-unhandled-errors: off
+
+globals:
+  Promise: false
+
+settings:
+  import/cache:
+    lifetime: 5  # for eslint_d (defaul: 30)
+
+  import/core-modules:
+    - redux-saga
+    - redux-saga/effects
+
+  # flowtype:
+  #   onlyFilesWithFlowAnnotation: true
