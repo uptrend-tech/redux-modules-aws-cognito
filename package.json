@@ -40,7 +40,8 @@
     "build": "src"
   },
   "jest": {
-    "testRegex": "/test/.*",
+    "BLOCKtestRegex": "/test/.*",
+    "testRegex": "/test/index.*",
     "testEnvironment": "node"
   },
   "keywords": [

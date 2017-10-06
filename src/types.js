@@ -18,6 +18,16 @@ export type State = {
  * Action Payloads
  */
 
+export type SetStatePayload = {
+  +info?: {
+    // +user?: {},
+  },
+  +error?: {},
+  +isSignedIn?: boolean,
+  +isConfirmed?: boolean,
+  +hasSignedUp?: boolean,
+};
+
 export type SignUpPayload = {
   email: string,
   password: string,
@@ -25,14 +35,15 @@ export type SignUpPayload = {
   phoneNumber: string,
 };
 
-export type ConfirmRegistrationPayload = {
-  email: string,
-  code: string,
-};
+// export type ConfirmRegistrationPayload = {
+//   email: string,
+//   code: string,
+// };
 
 export type LogInPayload = {
   email: string,
   password: string,
+  code?: string,
 };
 
 /**
@@ -41,7 +52,7 @@ export type LogInPayload = {
 
 export type SetStateAction = {
   type: 'AWS_COGNITO_SET_STATE',
-  payload: State,
+  payload: SetStatePayload,
 };
 
 export type InitAction = {
@@ -53,10 +64,10 @@ export type SignUpAction = {
   payload: SignUpPayload,
 };
 
-export type ConfirmRegistrationAction = {
-  type: 'AWS_COGNITO_CONFIRM_REGISTRATION',
-  payload: ConfirmRegistrationPayload,
-};
+// export type ConfirmRegistrationAction = {
+//   type: 'AWS_COGNITO_CONFIRM_REGISTRATION',
+//   payload: ConfirmRegistrationPayload,
+// };
 
 export type LogInAction = {
   type: 'AWS_COGNITO_LOG_IN',
@@ -72,7 +83,7 @@ export type SignedInAction = {
 };
 
 export type Action =
-  | ConfirmRegistrationAction
+  // | ConfirmRegistrationAction
   | InitAction
   | LogInAction
   | LogOutAction

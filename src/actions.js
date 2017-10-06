@@ -2,13 +2,14 @@
 
 import type {
   State,
-  ConfirmRegistrationAction,
-  ConfirmRegistrationPayload,
+  // ConfirmRegistrationAction,
+  // ConfirmRegistrationPayload,
   InitAction,
   LogInAction,
   LogInPayload,
   LogOutAction,
   SetStateAction,
+  SetStatePayload,
   SignUpAction,
   SignUpPayload,
   SignedInAction,
@@ -22,12 +23,12 @@ export const defaultState: State = {
   hasSignedUp: false,
 };
 
-export const confirmRegistration = (
-  payload: ConfirmRegistrationPayload,
-): ConfirmRegistrationAction => ({
-  type: 'AWS_COGNITO_CONFIRM_REGISTRATION',
-  payload,
-});
+// export const confirmRegistration = (
+//   payload: ConfirmRegistrationPayload,
+// ): ConfirmRegistrationAction => ({
+//   type: 'AWS_COGNITO_CONFIRM_REGISTRATION',
+//   payload,
+// });
 
 export const init = (): InitAction => ({
   type: 'AWS_COGNITO_INIT',
@@ -42,7 +43,7 @@ export const logOut = (): LogOutAction => ({
   type: 'AWS_COGNITO_LOG_OUT',
 });
 
-export const setState = (payload: State): SetStateAction => ({
+export const setState = (payload: SetStatePayload): SetStateAction => ({
   type: 'AWS_COGNITO_SET_STATE',
   payload,
 });
