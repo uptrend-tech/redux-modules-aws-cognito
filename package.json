@@ -1,6 +1,6 @@
 {
   "name": "redux-modules-aws-cognito",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "AWS Cognito for React apps using redux and redux-saga.",
   "license": "MIT",
   "repository": "omt-tech/redux-modules-aws-cognito",
