@@ -20,6 +20,43 @@ export const getUser = (state: State = initialState) => {
   return getInfo(state).user;
 };
 
+export const getUserSession = (state: State = initialState) => {
+  return getInfo(state).signInUserSession;
+};
+
+export const getUserIdToken = (state: State = initialState) => {
+  const signInUserSession = getUserSession(state);
+  return (
+    signInUserSession &&
+    signInUserSession.idToken &&
+    signInUserSession.idToken.jwtToken
+  );
+};
+
+export const getUserAccessToken = (state: State = initialState) => {
+  const signInUserSession = getUserSession(state);
+  return (
+    signInUserSession &&
+    signInUserSession.accessToken &&
+    signInUserSession.accessToken.jwtToken
+  );
+};
+
+export const getUserRefreshToken = (state: State = initialState) => {
+  const signInUserSession = getUserSession(state);
+  return (
+    signInUserSession &&
+    signInUserSession.refreshToken &&
+    signInUserSession.refreshToken.token
+  );
+};
+
+export const getUserTokens = (state: State = initialState) => ({
+  accessToken: getUserAccessToken(state),
+  refreshToken: getUserRefreshToken(state),
+  idToken: getUserIdToken(state),
+});
+
 export const getError = (state: State = initialState) => state.error;
 
 export const getErrorMsg = (state: State = initialState) => {

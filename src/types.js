@@ -7,6 +7,11 @@
 export type State = {
   +info: {
     +user?: {},
+    +signInUserSession?: {
+      +idToken: { jwtToken: string },
+      +refreshToken: { token: string },
+      +accessToken: { jwtToken: string },
+    },
   },
   +error: {
     +message?: string,
