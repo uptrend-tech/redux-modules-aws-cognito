@@ -27,14 +27,21 @@ import { initialState } from './selectors';
 // eslint-disable-next-line no-unused-vars
 function* signedIn(action: SignedInAction) {
   try {
+    yield put({
+      type: 'AWS_COGNITO_SET_STATE',
+      payload: {
+        isAuthenticating: true,
+      },
+    });
     yield call(getSession);
     const user = config.getUser();
     yield put({
       type: 'AWS_COGNITO_SET_STATE',
       payload: {
         ...initialState,
-        isSignedIn: true,
+        isAuthenticating: false,
         isConfirmed: true,
+        isSignedIn: true,
         info: user,
       },
     });
@@ -88,6 +95,13 @@ function* logOut(action: LogOutAction) {
 
 function* logIn(action: LogInAction) {
   try {
+    yield put({
+      type: 'AWS_COGNITO_SET_STATE',
+      payload: {
+        isAuthenticating: true,
+      },
+    });
+
     const { email, password, code } = action.payload;
 
     if (code) {
@@ -99,8 +113,9 @@ function* logIn(action: LogInAction) {
     yield put({
       type: 'AWS_COGNITO_SET_STATE',
       payload: {
-        isSignedIn: true,
+        isAuthenticating: false,
         isConfirmed: true,
+        isSignedIn: true,
         info: user,
       },
     });
@@ -108,12 +123,20 @@ function* logIn(action: LogInAction) {
     if (e.code === 'UserNotConfirmedException') {
       yield put({
         type: 'AWS_COGNITO_SET_STATE',
-        payload: { isConfirmed: false, error: e },
+        payload: {
+          isAuthenticating: false,
+          isConfirmed: false,
+          error: e,
+        },
       });
     } else {
       yield put({
         type: 'AWS_COGNITO_SET_STATE',
-        payload: { isConfirmed: true, error: e },
+        payload: {
+          isAuthenticating: false,
+          isConfirmed: true,
+          error: e,
+        },
       });
     }
   }

@@ -9,9 +9,10 @@ export type State = {
     // +user?: {},
   },
   +error: {},
-  +isSignedIn: boolean,
-  +isConfirmed: boolean,
   +hasSignedUp: boolean,
+  +isAuthenticating: boolean,
+  +isConfirmed: boolean,
+  +isSignedIn: boolean,
 };
 
 /**
@@ -23,9 +24,10 @@ export type SetStatePayload = {
     // +user?: {},
   },
   +error?: {},
-  +isSignedIn?: boolean,
-  +isConfirmed?: boolean,
   +hasSignedUp?: boolean,
+  +isAuthenticating?: boolean,
+  +isConfirmed?: boolean,
+  +isSignedIn?: boolean,
 };
 
 export type SignUpPayload = {
