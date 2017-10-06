@@ -1,8 +1,7 @@
-import sayHello from '../src';
+import { selectors } from '../src';
 
-describe('sayHello', () => {
-  it('returns hello', () => {
-    expect(sayHello()).toBe('Hello, Haz!');
-    expect(sayHello('foo')).toBe('Hello, foo!');
+describe('selectors.getInfo', () => {
+  it('returns empty obj', () => {
+    expect(selectors.getInfo()).toEqual({});
   });
 });

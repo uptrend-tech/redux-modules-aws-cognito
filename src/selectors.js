@@ -1,17 +1,17 @@
-// https://github.com/diegohaz/arc/wiki/Selectors
-// https://github.com/diegohaz/arc/wiki/Example-redux-modules#resource
-export const initialState = {};
+// @flow
 
-export const initialResourceState = {
-  list: [],
-  detail: null,
+import type { State } from './types';
+
+export const initialState: State = {
+  info: {},
+  error: {},
+  isSignedIn: false,
+  isConfirmed: false,
+  hasSignedUp: false,
 };
 
-export const getResourceState = (state = initialState, resource) =>
-  state[resource] || initialResourceState;
-
-export const getList = (state = initialState, resource) =>
-  getResourceState(state, resource).list;
-
-export const getDetail = (state = initialState, resource) =>
-  getResourceState(state, resource).detail;
+export const getInfo = (state: State = initialState) => state.info;
+export const getError = (state: State = initialState) => state.error;
+export const isSignedIn = (state: State = initialState) => state.isSignedIn;
+export const isConfirmed = (state: State = initialState) => state.isConfirmed;
+export const hasSignedUp = (state: State = initialState) => state.hasSignedUp;

@@ -1,7 +1,6 @@
 // @flow
 
 import type {
-  State,
   // ConfirmRegistrationAction,
   // ConfirmRegistrationPayload,
   InitAction,
@@ -14,14 +13,6 @@ import type {
   SignUpPayload,
   SignedInAction,
 } from './types';
-
-export const defaultState: State = {
-  info: {},
-  error: {},
-  isSignedIn: false,
-  isConfirmed: false,
-  hasSignedUp: false,
-};
 
 // export const confirmRegistration = (
 //   payload: ConfirmRegistrationPayload,

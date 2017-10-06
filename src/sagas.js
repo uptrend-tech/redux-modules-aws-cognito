@@ -1,7 +1,6 @@
 // @flow
 
 import { call, put, takeLatest } from 'redux-saga/effects';
-// import type { call, put, takeLatest } from 'redux-saga/effects';
 import type { IOEffect } from 'redux-saga/effects';
 
 import {
@@ -14,11 +13,7 @@ import {
   config,
 } from 'aws-cognito-promises';
 
-// import * as actions from './actions';
-// import * as states from './states';
-
 import type {
-  // State,
   // ConfirmRegistrationAction,
   InitAction,
   LogInAction,
@@ -27,7 +22,7 @@ import type {
   SignedInAction,
 } from './types';
 
-import { defaultState } from './actions';
+import { initialState } from './selectors';
 
 // eslint-disable-next-line no-unused-vars
 function* signedIn(action: SignedInAction) {
@@ -37,7 +32,7 @@ function* signedIn(action: SignedInAction) {
     yield put({
       type: 'AWS_COGNITO_SET_STATE',
       payload: {
-        ...defaultState,
+        ...initialState,
         isSignedIn: true,
         isConfirmed: true,
         info: user,
@@ -48,7 +43,7 @@ function* signedIn(action: SignedInAction) {
     yield put({
       type: 'AWS_COGNITO_SET_STATE',
       payload: {
-        ...defaultState,
+        ...initialState,
       },
     });
   }
@@ -60,7 +55,7 @@ function* signUp(action: SignUpAction) {
     yield put({
       type: 'AWS_COGNITO_SET_STATE',
       payload: {
-        ...defaultState,
+        ...initialState,
         hasSignedUp: true,
       },
     });
@@ -68,7 +63,7 @@ function* signUp(action: SignUpAction) {
     yield put({
       type: 'AWS_COGNITO_SET_STATE',
       payload: {
-        ...defaultState,
+        ...initialState,
         error: e,
       },
     });
@@ -129,7 +124,7 @@ function* init(action: InitAction): Generator<IOEffect, *, *> {
   yield put({
     type: 'AWS_COGNITO_SET_STATE',
     payload: {
-      ...defaultState,
+      ...initialState,
     },
   });
 }
