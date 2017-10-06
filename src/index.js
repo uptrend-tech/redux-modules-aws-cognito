@@ -1,11 +1,9 @@
 // @flow
 
 import * as config from 'aws-cognito-promises';
-
+import * as actions from './actions';
+import * as selectors from './selectors';
+import reducer from './reducer';
 import sagas from './sagas';
 
-import * as action from './actions';
-import * as selectors from './selectors';
-import * as reducer from './reducer';
-
-export { config, sagas, action, selectors, reducer };
+export { config, sagas, actions, selectors, reducer };
