@@ -16,6 +16,10 @@ export const isAuthenticating = (state: State = initialState) =>
 
 export const getInfo = (state: State = initialState) => state.info;
 
+export const getUser = (state: State = initialState) => {
+  return getInfo(state).user;
+};
+
 export const getError = (state: State = initialState) => state.error;
 
 export const getErrorMsg = (state: State = initialState) => {

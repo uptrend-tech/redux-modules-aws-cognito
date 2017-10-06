@@ -6,7 +6,7 @@
 
 export type State = {
   +info: {
-    // +user?: {},
+    +user?: {},
   },
   +error: {
     +message?: string,
@@ -23,7 +23,7 @@ export type State = {
 
 export type SetStatePayload = {
   +info?: {
-    // +user?: {},
+    +user?: {},
   },
   +error?: {
     +message?: string,
