@@ -8,7 +8,9 @@ export type State = {
   +info: {
     // +user?: {},
   },
-  +error: {},
+  +error: {
+    +message?: string,
+  },
   +hasSignedUp: boolean,
   +isAuthenticating: boolean,
   +isConfirmed: boolean,
