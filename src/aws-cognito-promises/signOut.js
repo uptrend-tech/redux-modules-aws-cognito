@@ -1,12 +1,12 @@
-import { getUser } from './config'
+import { getUser } from './config';
 
 export default function() {
-  const cognitoUser = getUser()
+  const cognitoUser = getUser();
 
   if (cognitoUser) {
-    cognitoUser.signOut()
-    Promise.resolve()
+    cognitoUser.signOut();
+    Promise.resolve();
   } else {
-    throw new Error('no cognitiveUser value')
+    throw new Error('no cognitiveUser value');
   }
 }
