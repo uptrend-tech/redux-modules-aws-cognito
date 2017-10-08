@@ -15,6 +15,9 @@ const reducer = (state: State = initialState, action: Action): State => {
     case 'AWS_COGNITO_LOG_OUT':
       return { ...initialState };
 
+    case 'AWS_COGNITO_RESET_STATE':
+      return { ...initialState, ...action.payload };
+
     case 'AWS_COGNITO_SET_STATE':
       return { ...state, ...action.payload };
 
