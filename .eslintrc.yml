@@ -57,6 +57,7 @@ rules:
     - trailingComma: all
       singleQuote: true
       printWidth: 80
+      parser: flow
 
 overrides:
   # # disable errors in old code (new ARc.js code should be tested)
