@@ -1,6 +1,6 @@
 import { getUser } from './config';
 
-const signOut = (): Promise => {
+const signOut = () => {
   const cognitoUser = getUser();
 
   if (cognitoUser) {
