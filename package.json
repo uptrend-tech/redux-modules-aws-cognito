@@ -47,7 +47,7 @@
     "redux-modules-aws-cognito"
   ],
   "dependencies": {
-    "aws-cognito-promises": "^1.0.4",
+    "amazon-cognito-identity-js": "^1.21.0",
     "aws-sdk": "^2.128.0",
     "redux": "^3.7.2",
     "redux-saga": "^0.15.6"

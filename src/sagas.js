@@ -11,7 +11,7 @@ import {
   authSignOut,
   getSession,
   config,
-} from 'aws-cognito-promises';
+} from './aws-cognito-promises';
 
 import type {
   // ConfirmRegistrationAction,
