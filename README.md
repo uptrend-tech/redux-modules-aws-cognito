@@ -76,12 +76,12 @@ Type: {info: {user: {}?, signInUserSession: {idToken: {jwtToken: [string](https:
 
 Action Types
 
-Type: {type: `"AWS_COGNITO_RESET_STATE"`, payload: [SetStatePayload](#setstatepayload)}
+Type: {type: `"AWS_COGNITO_RESET_STATE"`, payload: [SetStatePayload](#setstatepayload)?}
 
 **Properties**
 
 -   `type` **`"AWS_COGNITO_RESET_STATE"`** 
--   `payload` **[SetStatePayload](#setstatepayload)** 
+-   `payload` **[SetStatePayload](#setstatepayload)?** 
 
 ## License
 
