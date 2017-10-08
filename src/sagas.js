@@ -88,7 +88,10 @@ function* logIn(action: LogInAction) {
       }),
     );
   } catch (e) {
-    if (e.code === 'UserNotConfirmedException') {
+    if (
+      e.code === 'UserNotConfirmedException' ||
+      e.code === 'CodeMismatchException'
+    ) {
       yield put(
         actions.setState({
           isAuthenticating: false,
