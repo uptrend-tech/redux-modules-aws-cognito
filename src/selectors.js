@@ -9,10 +9,21 @@ export const initialState: State = {
   isAuthenticating: false,
   isConfirmed: false,
   isSignedIn: false,
+  needConfirmCode: false,
 };
 
 export const isAuthenticating = (state: State = initialState) =>
   state.isAuthenticating;
+
+export const isSignedIn = (state: State = initialState) => state.isSignedIn;
+
+export const isConfirmed = (state: State = initialState) => state.isConfirmed;
+
+export const hasSignedUp = (state: State = initialState) => state.hasSignedUp;
+
+export const showConfirm = (state: State = initialState) => {
+  return getInfo(state).user;
+};
 
 export const getInfo = (state: State = initialState) => state.info;
 
@@ -63,9 +74,3 @@ export const getErrorMsg = (state: State = initialState) => {
   const error = getError(state);
   return error.message;
 };
-
-export const isSignedIn = (state: State = initialState) => state.isSignedIn;
-
-export const isConfirmed = (state: State = initialState) => state.isConfirmed;
-
-export const hasSignedUp = (state: State = initialState) => state.hasSignedUp;

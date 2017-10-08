@@ -22,59 +22,40 @@ import type {
   SignedInAction,
 } from './types';
 
-import { initialState } from './selectors';
+import * as actions from './actions';
 
 // eslint-disable-next-line no-unused-vars
 function* signedIn(action: SignedInAction) {
   try {
-    yield put({
-      type: 'AWS_COGNITO_SET_STATE',
-      payload: {
-        isAuthenticating: true,
-      },
-    });
+    yield put(actions.setState({ isAuthenticating: true }));
+
     yield call(getSession);
+
     const user = config.getUser();
-    yield put({
-      type: 'AWS_COGNITO_SET_STATE',
-      payload: {
-        ...initialState,
+
+    yield put(
+      actions.resetState({
         isAuthenticating: false,
         isConfirmed: true,
         isSignedIn: true,
         info: user,
-      },
-    });
+      }),
+    );
   } catch (e) {
     // not signed in
-    yield put({
-      type: 'AWS_COGNITO_SET_STATE',
-      payload: {
-        ...initialState,
-      },
-    });
+    yield put(actions.resetState());
   }
 }
 
 function* signUp(action: SignUpAction) {
   try {
     const { email, password, locale, phoneNumber } = action.payload;
+
     yield call(authRegister, email, password, locale, phoneNumber);
-    yield put({
-      type: 'AWS_COGNITO_SET_STATE',
-      payload: {
-        ...initialState,
-        hasSignedUp: true,
-      },
-    });
+
+    yield put(actions.setState({ hasSignedUp: true }));
   } catch (e) {
-    yield put({
-      type: 'AWS_COGNITO_SET_STATE',
-      payload: {
-        ...initialState,
-        error: e,
-      },
-    });
+    yield put(actions.resetState({ error: e }));
   }
 }
 
@@ -82,27 +63,13 @@ function* signUp(action: SignUpAction) {
 function* logOut(action: LogOutAction) {
   try {
     yield call(authSignOut);
-    yield put({
-      type: 'AWS_COGNITO_SET_STATE',
-      payload: { isSignedIn: false },
-    });
   } catch (e) {
-    yield put({
-      type: 'AWS_COGNITO_SET_STATE',
-      payload: { error: e, isSignedIn: false },
-    });
+    yield put(actions.resetState({ error: e }));
   }
 }
 
 function* logIn(action: LogInAction) {
   try {
-    yield put({
-      type: 'AWS_COGNITO_SET_STATE',
-      payload: {
-        isAuthenticating: true,
-      },
-    });
-
     const { email, password, code } = action.payload;
 
     if (code) {
@@ -111,46 +78,42 @@ function* logIn(action: LogInAction) {
 
     let user = yield call(authSignIn, email, password);
     user = yield call(getLocalUser);
-    yield put({
-      type: 'AWS_COGNITO_SET_STATE',
-      payload: {
+    yield put(
+      actions.setState({
         isAuthenticating: false,
         isConfirmed: true,
         isSignedIn: true,
+        needConfirmCode: false,
         info: user,
-      },
-    });
+      }),
+    );
   } catch (e) {
     if (e.code === 'UserNotConfirmedException') {
-      yield put({
-        type: 'AWS_COGNITO_SET_STATE',
-        payload: {
+      yield put(
+        actions.setState({
           isAuthenticating: false,
+          hasSignedUp: true,
           isConfirmed: false,
+          needConfirmCode: true,
           error: e,
-        },
-      });
+        }),
+      );
     } else {
-      yield put({
-        type: 'AWS_COGNITO_SET_STATE',
-        payload: {
+      yield put(
+        actions.setState({
           isAuthenticating: false,
+          needConfirmCode: false,
           isConfirmed: true,
           error: e,
-        },
-      });
+        }),
+      );
     }
   }
 }
 
 // eslint-disable-next-line no-unused-vars
 function* init(action: InitAction): Generator<IOEffect, *, *> {
-  yield put({
-    type: 'AWS_COGNITO_SET_STATE',
-    payload: {
-      ...initialState,
-    },
-  });
+  yield put(actions.resetState());
 }
 
 export default function*(): Generator<IOEffect, *, *> {

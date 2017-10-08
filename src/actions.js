@@ -7,6 +7,7 @@ import type {
   LogInAction,
   LogInPayload,
   LogOutAction,
+  ResetStateAction,
   SetStateAction,
   SetStatePayload,
   SignUpAction,
@@ -32,6 +33,11 @@ export const logIn = (payload: LogInPayload): LogInAction => ({
 
 export const logOut = (): LogOutAction => ({
   type: 'AWS_COGNITO_LOG_OUT',
+});
+
+export const resetState = (payload?: SetStatePayload): ResetStateAction => ({
+  type: 'AWS_COGNITO_RESET_STATE',
+  payload,
 });
 
 export const setState = (payload: SetStatePayload): SetStateAction => ({

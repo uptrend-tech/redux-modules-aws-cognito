@@ -20,6 +20,7 @@ export type State = {
   +isAuthenticating: boolean,
   +isConfirmed: boolean,
   +isSignedIn: boolean,
+  +needConfirmCode: boolean,
 };
 
 /**
@@ -42,6 +43,7 @@ export type SetStatePayload = {
   +isAuthenticating?: boolean,
   +isConfirmed?: boolean,
   +isSignedIn?: boolean,
+  +needConfirmCode?: boolean,
 };
 
 export type SignUpPayload = {
@@ -65,6 +67,11 @@ export type LogInPayload = {
 /**
  * Action Types
  */
+
+export type ResetStateAction = {
+  type: 'AWS_COGNITO_RESET_STATE',
+  payload?: SetStatePayload,
+};
 
 export type SetStateAction = {
   type: 'AWS_COGNITO_SET_STATE',
@@ -103,6 +110,7 @@ export type Action =
   | InitAction
   | LogInAction
   | LogOutAction
+  | ResetStateAction
   | SetStateAction
   | SignUpAction
   | SignedInAction;

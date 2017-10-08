@@ -1,6 +1,6 @@
 import { getUser } from './config';
 
-export default function() {
+const signOut = (): Promise => {
   const cognitoUser = getUser();
 
   if (cognitoUser) {
@@ -9,4 +9,6 @@ export default function() {
   } else {
     throw new Error('no cognitiveUser value');
   }
-}
+};
+
+export default signOut;
