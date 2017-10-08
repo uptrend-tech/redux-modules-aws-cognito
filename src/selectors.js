@@ -21,6 +21,9 @@ export const isConfirmed = (state: State = initialState) => state.isConfirmed;
 
 export const hasSignedUp = (state: State = initialState) => state.hasSignedUp;
 
+export const needConfirmCode = (state: State = initialState) =>
+  state.needConfirmCode;
+
 export const showConfirm = (state: State = initialState) => {
   return getInfo(state).user;
 };
