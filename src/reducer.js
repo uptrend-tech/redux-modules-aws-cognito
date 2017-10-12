@@ -24,6 +24,7 @@ const reducer = (state: State = initialState, action: Action): State => {
     case 'AWS_COGNITO_LOG_IN_SUCCESS':
       return {
         ...state,
+        ...action.payload,
         isSignedIn: true,
         isAuthenticating: false,
       };
