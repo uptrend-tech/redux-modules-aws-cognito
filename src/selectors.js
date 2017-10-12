@@ -1,5 +1,7 @@
 // @flow
 
+import { createSelector } from 'reselect';
+
 import type { State } from './types';
 
 export const initialState: State = {
@@ -12,68 +14,77 @@ export const initialState: State = {
   needConfirmCode: false,
 };
 
-export const isAuthenticating = (state: State = initialState) =>
-  state.isAuthenticating;
+export const cognitoState = (state: { cognito: State }): State => state.cognito;
 
-export const isSignedIn = (state: State = initialState) => state.isSignedIn;
+export const isAuthenticating = createSelector(
+  [cognitoState],
+  (state: State = initialState) => state.isAuthenticating,
+);
 
-export const isConfirmed = (state: State = initialState) => state.isConfirmed;
+export const isSignedIn = createSelector(
+  [cognitoState],
+  (state: State = initialState) => state.isSignedIn,
+);
 
-export const hasSignedUp = (state: State = initialState) => state.hasSignedUp;
+export const isConfirmed = createSelector(
+  [cognitoState],
+  (state: State = initialState) => state.isConfirmed,
+);
 
-export const needConfirmCode = (state: State = initialState) =>
-  state.needConfirmCode;
+export const hasSignedUp = createSelector(
+  [cognitoState],
+  (state: State = initialState) => state.hasSignedUp,
+);
 
-export const showConfirm = (state: State = initialState) => {
-  return getInfo(state).user;
-};
+export const needConfirmCode = createSelector(
+  [cognitoState],
+  (state: State = initialState) => state.needConfirmCode,
+);
 
-export const getInfo = (state: State = initialState) => state.info;
+export const getInfo = createSelector(
+  [cognitoState],
+  (state: State = initialState) => state.info,
+);
 
-export const getUser = (state: State = initialState) => {
-  return getInfo(state).user;
-};
+export const getUser = createSelector([getInfo], info => info.user);
 
-export const getUserSession = (state: State = initialState) => {
-  return getInfo(state).signInUserSession;
-};
+export const showConfirm = createSelector([getUser], user => user);
 
-export const getUserIdToken = (state: State = initialState) => {
-  const signInUserSession = getUserSession(state);
-  return (
-    signInUserSession &&
-    signInUserSession.idToken &&
-    signInUserSession.idToken.jwtToken
-  );
-};
+export const getUserSession = createSelector(
+  [getInfo],
+  info => info.signInUserSession,
+);
 
-export const getUserAccessToken = (state: State = initialState) => {
-  const signInUserSession = getUserSession(state);
-  return (
-    signInUserSession &&
-    signInUserSession.accessToken &&
-    signInUserSession.accessToken.jwtToken
-  );
-};
+export const getUserIdToken = createSelector(
+  [getUserSession],
+  userSession =>
+    userSession && userSession.idToken && userSession.idToken.jwtToken,
+);
 
-export const getUserRefreshToken = (state: State = initialState) => {
-  const signInUserSession = getUserSession(state);
-  return (
-    signInUserSession &&
-    signInUserSession.refreshToken &&
-    signInUserSession.refreshToken.token
-  );
-};
+export const getUserAccessToken = createSelector(
+  [getUserSession],
+  userSession =>
+    userSession && userSession.accessToken && userSession.accessToken.jwtToken,
+);
 
-export const getUserTokens = (state: State = initialState) => ({
-  accessToken: getUserAccessToken(state),
-  refreshToken: getUserRefreshToken(state),
-  idToken: getUserIdToken(state),
-});
+export const getUserRefreshToken = createSelector(
+  [getUserSession],
+  userSession =>
+    userSession && userSession.refreshToken && userSession.refreshToken.token,
+);
 
-export const getError = (state: State = initialState) => state.error;
+export const getUserTokens = createSelector(
+  [getUserAccessToken, getUserRefreshToken, getUserIdToken],
+  (accessToken, refreshToken, idToken) => ({
+    accessToken,
+    refreshToken,
+    idToken,
+  }),
+);
 
-export const getErrorMsg = (state: State = initialState) => {
-  const error = getError(state);
-  return error.message;
-};
+export const getError = createSelector(
+  [cognitoState],
+  (state: State = initialState) => state.error,
+);
+
+export const getErrorMsg = createSelector([getError], error => error.message);

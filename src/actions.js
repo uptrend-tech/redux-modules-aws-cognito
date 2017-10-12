@@ -5,6 +5,8 @@ import type {
   // ConfirmRegistrationPayload,
   InitAction,
   LogInAction,
+  LogInFailedAction,
+  LogInSuccessAction,
   LogInPayload,
   LogOutAction,
   ResetStateAction,
@@ -28,6 +30,16 @@ export const init = (): InitAction => ({
 
 export const logIn = (payload: LogInPayload): LogInAction => ({
   type: 'AWS_COGNITO_LOG_IN',
+  payload,
+});
+
+export const logInFailed = (payload: SetStatePayload): LogInFailedAction => ({
+  type: 'AWS_COGNITO_LOG_IN_FAILED',
+  payload,
+});
+
+export const logInSuccess = (payload: SetStatePayload): LogInSuccessAction => ({
+  type: 'AWS_COGNITO_LOG_IN_SUCCESS',
   payload,
 });
 

@@ -71,6 +71,7 @@ function* logOut(action: LogOutAction) {
 function* logIn(action: LogInAction) {
   try {
     const { email, password, code } = action.payload;
+    console.log('saga:logIn', { email, password, code }, { action });
 
     if (code) {
       yield call(confirmation, email, code);
@@ -78,23 +79,15 @@ function* logIn(action: LogInAction) {
 
     let user = yield call(authSignIn, email, password);
     user = yield call(getLocalUser);
-    yield put(
-      actions.setState({
-        isAuthenticating: false,
-        isConfirmed: true,
-        isSignedIn: true,
-        needConfirmCode: false,
-        info: user,
-      }),
-    );
+    yield put(actions.logInSuccess({ info: user }));
   } catch (e) {
+    console.trace(e);
     if (
       e.code === 'UserNotConfirmedException' ||
       e.code === 'CodeMismatchException'
     ) {
       yield put(
-        actions.setState({
-          isAuthenticating: false,
+        actions.logInFailed({
           hasSignedUp: true,
           isConfirmed: false,
           needConfirmCode: true,
@@ -103,8 +96,7 @@ function* logIn(action: LogInAction) {
       );
     } else {
       yield put(
-        actions.setState({
-          isAuthenticating: false,
+        actions.logInFailed({
           needConfirmCode: false,
           isConfirmed: true,
           error: e,

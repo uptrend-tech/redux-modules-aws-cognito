@@ -97,6 +97,16 @@ export type LogInAction = {
   payload: LogInPayload,
 };
 
+export type LogInFailedAction = {
+  type: 'AWS_COGNITO_LOG_IN_FAILED',
+  payload?: SetStatePayload,
+};
+
+export type LogInSuccessAction = {
+  type: 'AWS_COGNITO_LOG_IN_SUCCESS',
+  payload?: SetStatePayload,
+};
+
 export type LogOutAction = {
   type: 'AWS_COGNITO_LOG_OUT',
 };
