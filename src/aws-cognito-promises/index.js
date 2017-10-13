@@ -4,6 +4,7 @@ import authSignIn from './authenticate';
 import getLocalUser from './getLocalUser';
 import authSignOut from './signOut';
 import getSession from './getSession';
+import refreshCredentials from './refreshCredentials';
 import * as config from './config';
 
 export {
@@ -14,4 +15,5 @@ export {
   authSignOut,
   getSession,
   config,
+  refreshCredentials,
 };

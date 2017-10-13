@@ -21,20 +21,20 @@ import type {
 } from './types';
 
 export const loadSession = (): ActionLoadSession => ({
-  type: '@@awsCognito/LOAD_SESS',
+  type: '@@awsCognito/LOAD_SESSION',
 });
 
 export const loadSessionFailed = (
   payload: PayloadSetState,
 ): ActionLoadSessionFailed => ({
-  type: '@@awsCognito/LOAD_SESS_FAILED',
+  type: '@@awsCognito/LOAD_SESSION_FAILED',
   payload,
 });
 
 export const loadSessionSuccess = (
   payload: PayloadSetState,
 ): ActionLoadSessionSuccess => ({
-  type: '@@awsCognito/LOAD_SESS_SUCCESS',
+  type: '@@awsCognito/LOAD_SESSION_SUCCESS',
   payload,
 });
 

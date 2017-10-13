@@ -6,42 +6,27 @@ import { initialState } from './selectors';
 
 const reducer = (state: State = initialState, action: Action): State => {
   switch (action.type) {
-    case '@@awsCognito/LOAD_SESS':
-      return { ...state, isAuthenticating: true };
-
-    case '@@awsCognito/LOAD_SESS_FAILED':
-      return {
-        ...state,
-        ...action.payload,
-        isAuthenticating: false,
-        isSignedIn: false,
-      };
-
-    case '@@awsCognito/LOAD_SESS_SUCCESS':
-      return {
-        ...state,
-        ...action.payload,
-        isSignedIn: true,
-        isAuthenticating: false,
-      };
-
+    case '@@awsCognito/LOAD_SESSION':
     case '@@awsCognito/LOG_IN':
       return { ...state, isAuthenticating: true };
 
+    case '@@awsCognito/LOAD_SESSION_FAILED':
     case '@@awsCognito/LOG_IN_FAILED':
       return {
         ...state,
+        ...action.payload,
         isAuthenticating: false,
-        isConfirmed: true,
-        isSignedIn: false,
-        needConfirmCode: false,
+        isAuthenticated: false,
+        // isConfirmed: true,
+        // needConfirmCode: false,
       };
 
+    case '@@awsCognito/LOAD_SESSION_SUCCESS':
     case '@@awsCognito/LOG_IN_SUCCESS':
       return {
         ...state,
         ...action.payload,
-        isSignedIn: true,
+        isAuthenticated: true,
         isAuthenticating: false,
       };
 

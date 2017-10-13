@@ -11,6 +11,7 @@ import {
   authSignOut,
   getSession,
   config,
+  refreshCredentials,
 } from './aws-cognito-promises';
 
 import type {
@@ -25,23 +26,25 @@ import * as actions from './actions';
 // eslint-disable-next-line no-unused-vars
 function* loadSession(action: ActionLoadSession) {
   try {
+    yield call([console, console.log], 'awsCog::loadSession:0');
     yield put(actions.setState({ isAuthenticating: true }));
 
-    yield call(getSession);
+    yield call([console, console.log], 'awsCog::loadSession:1');
+    const session = yield call(getSession);
+    yield call([console, console.log], 'session', session);
 
-    const user = config.getUser();
+    yield call([console, console.log], 'awsCog::loadSession:2');
+    const user = yield call([config, config.getUser]);
+    yield call([console, console.log], 'user', user);
 
-    yield put(
-      actions.resetState({
-        isAuthenticating: false,
-        isConfirmed: true,
-        isSignedIn: true,
-        info: user,
-      }),
-    );
+    // yield call(refreshCredentials);
+
+    yield call([console, console.log], 'awsCog::loadSession:3', { user });
+    // console.log('awsCog::loadSession:3', { user });
+    yield put(actions.loadSessionSuccess({ info: user }));
   } catch (e) {
     // not signed in
-    yield put(actions.resetState());
+    yield put(actions.loadSessionFailed(e));
   }
 }
 
@@ -108,6 +111,6 @@ export default function*(): Generator<IOEffect, *, *> {
   // yield takeLatest('@@awsCognito/CONFIRM_REGISTRATION', confirmRegistration);
   yield takeLatest('@@awsCognito/LOG_IN', logIn);
   yield takeLatest('@@awsCognito/LOG_OUT', logOut);
-  yield takeLatest('@@awsCognito/SIGNED_IN', loadSession);
+  yield takeLatest('@@awsCognito/LOAD_SESSION', loadSession);
   yield takeLatest('@@awsCognito/SIGN_UP', signUp);
 }

@@ -19,7 +19,7 @@ export type State = {
   +hasSignedUp: boolean,
   +isAuthenticating: boolean,
   +isConfirmed: boolean,
-  +isSignedIn: boolean,
+  +isAuthenticated: boolean,
   +needConfirmCode: boolean,
 };
 
@@ -48,7 +48,7 @@ export type PayloadSetState = {
   +hasSignedUp?: boolean,
   +isAuthenticating?: boolean,
   +isConfirmed?: boolean,
-  +isSignedIn?: boolean,
+  +isAuthenticated?: boolean,
   +needConfirmCode?: boolean,
 };
 
@@ -65,16 +65,16 @@ export type PayloadSignUp = {
 
 // LOAD SESSION
 export type ActionLoadSession = {
-  type: '@@awsCognito/LOAD_SESS',
+  type: '@@awsCognito/LOAD_SESSION',
 };
 
 export type ActionLoadSessionFailed = {
-  type: '@@awsCognito/LOAD_SESS_FAILED',
+  type: '@@awsCognito/LOAD_SESSION_FAILED',
   payload?: PayloadSetState,
 };
 
 export type ActionLoadSessionSuccess = {
-  type: '@@awsCognito/LOAD_SESS_SUCCESS',
+  type: '@@awsCognito/LOAD_SESSION_SUCCESS',
   payload?: PayloadSetState,
 };
 
