@@ -47,41 +47,33 @@ Type: {info: {user: {}?, signInUserSession: {idToken: {jwtToken: [string](https:
 -   `isSignedIn` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 -   `needConfirmCode` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
-### SetStatePayload
+### PayloadLogIn
 
 Action Payloads
 
-Type: {info: {user: {}?, signInUserSession: {idToken: {jwtToken: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)}?, refreshToken: {token: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)}?, accessToken: {jwtToken: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)}?}?}?, error: {message: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?}?, hasSignedUp: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?, isAuthenticating: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?, isConfirmed: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?, isSignedIn: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?, needConfirmCode: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?}
+Type: {email: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), password: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), code: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?}
 
 **Properties**
 
--   `info` **{user: {}?, signInUserSession: {idToken: {jwtToken: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)}?, refreshToken: {token: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)}?, accessToken: {jwtToken: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)}?}?}?** 
--   `info.user` **{}?** 
--   `info.signInUserSession` **{idToken: {jwtToken: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)}?, refreshToken: {token: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)}?, accessToken: {jwtToken: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)}?}?** 
--   `info.signInUserSession.idToken` **{jwtToken: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)}?** 
--   `info.signInUserSession.idToken.jwtToken` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `info.signInUserSession.refreshToken` **{token: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)}?** 
--   `info.signInUserSession.refreshToken.token` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `info.signInUserSession.accessToken` **{jwtToken: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)}?** 
--   `info.signInUserSession.accessToken.jwtToken` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `error` **{message: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?}?** 
--   `error.message` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
--   `hasSignedUp` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** 
--   `isAuthenticating` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** 
--   `isConfirmed` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** 
--   `isSignedIn` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** 
--   `needConfirmCode` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** 
+-   `email` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `password` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `code` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
 
-### ResetStateAction
+### ActionLoadSession
 
 Action Types
 
-Type: {type: `"AWS_COGNITO_RESET_STATE"`, payload: [SetStatePayload](#setstatepayload)?}
+Type: {type: `"@@awsCognito/LOAD_SESS"`}
 
 **Properties**
 
--   `type` **`"AWS_COGNITO_RESET_STATE"`** 
--   `payload` **[SetStatePayload](#setstatepayload)?** 
+-   `type` **`"@@awsCognito/LOAD_SESS"`** 
+
+### Action
+
+Action Union Type
+
+Type: ([ActionLoadSession](#actionloadsession) | ActionLoadSessionFailed | ActionLoadSessionSuccess | ActionLogIn | ActionLogInFailed | ActionLogInSuccess | ActionLogOut | ActionLogOutFailed | ActionLogOutSuccess | ActionResetState | ActionSetState | ActionSignUp | ActionSignUpFailed | ActionSignUpSuccess)
 
 ## License
 

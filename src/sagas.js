@@ -14,18 +14,16 @@ import {
 } from './aws-cognito-promises';
 
 import type {
-  // ConfirmRegistrationAction,
-  InitAction,
-  LogInAction,
-  LogOutAction,
-  SignUpAction,
-  SignedInAction,
+  ActionLogIn,
+  ActionLogOut,
+  ActionSignUp,
+  ActionLoadSession,
 } from './types';
 
 import * as actions from './actions';
 
 // eslint-disable-next-line no-unused-vars
-function* signedIn(action: SignedInAction) {
+function* loadSession(action: ActionLoadSession) {
   try {
     yield put(actions.setState({ isAuthenticating: true }));
 
@@ -47,7 +45,7 @@ function* signedIn(action: SignedInAction) {
   }
 }
 
-function* signUp(action: SignUpAction) {
+function* signUp(action: ActionSignUp) {
   try {
     const { email, password, locale, phoneNumber } = action.payload;
 
@@ -60,7 +58,7 @@ function* signUp(action: SignUpAction) {
 }
 
 // eslint-disable-next-line no-unused-vars
-function* logOut(action: LogOutAction) {
+function* logOut(action: ActionLogOut) {
   try {
     yield call(authSignOut);
   } catch (e) {
@@ -68,7 +66,7 @@ function* logOut(action: LogOutAction) {
   }
 }
 
-function* logIn(action: LogInAction) {
+function* logIn(action: ActionLogIn) {
   try {
     const { email, password, code } = action.payload;
     console.log('saga:logIn', { email, password, code }, { action });
@@ -106,16 +104,10 @@ function* logIn(action: LogInAction) {
   }
 }
 
-// eslint-disable-next-line no-unused-vars
-function* init(action: InitAction): Generator<IOEffect, *, *> {
-  yield put(actions.resetState());
-}
-
 export default function*(): Generator<IOEffect, *, *> {
-  // yield takeLatest('AWS_COGNITO_CONFIRM_REGISTRATION', confirmRegistration);
-  yield takeLatest('AWS_COGNITO_INIT', init);
-  yield takeLatest('AWS_COGNITO_LOG_IN', logIn);
-  yield takeLatest('AWS_COGNITO_LOG_OUT', logOut);
-  yield takeLatest('AWS_COGNITO_SIGNED_IN', signedIn);
-  yield takeLatest('AWS_COGNITO_SIGN_UP', signUp);
+  // yield takeLatest('@@awsCognito/CONFIRM_REGISTRATION', confirmRegistration);
+  yield takeLatest('@@awsCognito/LOG_IN', logIn);
+  yield takeLatest('@@awsCognito/LOG_OUT', logOut);
+  yield takeLatest('@@awsCognito/SIGNED_IN', loadSession);
+  yield takeLatest('@@awsCognito/SIGN_UP', signUp);
 }

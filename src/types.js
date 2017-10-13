@@ -27,7 +27,13 @@ export type State = {
  * Action Payloads
  */
 
-export type SetStatePayload = {
+export type PayloadLogIn = {
+  email: string,
+  password: string,
+  code?: string,
+};
+
+export type PayloadSetState = {
   +info?: {
     +user?: {},
     +signInUserSession?: {
@@ -46,81 +52,110 @@ export type SetStatePayload = {
   +needConfirmCode?: boolean,
 };
 
-export type SignUpPayload = {
+export type PayloadSignUp = {
   email: string,
   password: string,
   locale: string,
   phoneNumber: string,
 };
 
-// export type ConfirmRegistrationPayload = {
-//   email: string,
-//   code: string,
-// };
-
-export type LogInPayload = {
-  email: string,
-  password: string,
-  code?: string,
-};
-
 /**
  * Action Types
  */
 
-export type ResetStateAction = {
-  type: 'AWS_COGNITO_RESET_STATE',
-  payload?: SetStatePayload,
+// LOAD SESSION
+export type ActionLoadSession = {
+  type: '@@awsCognito/LOAD_SESS',
 };
 
-export type SetStateAction = {
-  type: 'AWS_COGNITO_SET_STATE',
-  payload: SetStatePayload,
+export type ActionLoadSessionFailed = {
+  type: '@@awsCognito/LOAD_SESS_FAILED',
+  payload?: PayloadSetState,
 };
 
-export type InitAction = {
-  type: 'AWS_COGNITO_INIT',
+export type ActionLoadSessionSuccess = {
+  type: '@@awsCognito/LOAD_SESS_SUCCESS',
+  payload?: PayloadSetState,
 };
 
-export type SignUpAction = {
-  type: 'AWS_COGNITO_SIGN_UP',
-  payload: SignUpPayload,
+// LOG IN
+export type ActionLogIn = {
+  type: '@@awsCognito/LOG_IN',
+  payload: PayloadLogIn,
 };
 
-// export type ConfirmRegistrationAction = {
-//   type: 'AWS_COGNITO_CONFIRM_REGISTRATION',
-//   payload: ConfirmRegistrationPayload,
-// };
-
-export type LogInAction = {
-  type: 'AWS_COGNITO_LOG_IN',
-  payload: LogInPayload,
+export type ActionLogInFailed = {
+  type: '@@awsCognito/LOG_IN_FAILED',
+  payload?: PayloadSetState,
 };
 
-export type LogInFailedAction = {
-  type: 'AWS_COGNITO_LOG_IN_FAILED',
-  payload?: SetStatePayload,
+export type ActionLogInSuccess = {
+  type: '@@awsCognito/LOG_IN_SUCCESS',
+  payload?: PayloadSetState,
 };
 
-export type LogInSuccessAction = {
-  type: 'AWS_COGNITO_LOG_IN_SUCCESS',
-  payload?: SetStatePayload,
+// LOG OUT
+export type ActionLogOut = {
+  type: '@@awsCognito/LOG_OUT',
 };
 
-export type LogOutAction = {
-  type: 'AWS_COGNITO_LOG_OUT',
+export type ActionLogOutFailed = {
+  type: '@@awsCognito/LOG_OUT_FAILED',
+  payload?: PayloadSetState,
 };
 
-export type SignedInAction = {
-  type: 'AWS_COGNITO_SIGNED_IN',
+export type ActionLogOutSuccess = {
+  type: '@@awsCognito/LOG_OUT_SUCCESS',
+  payload?: PayloadSetState,
 };
+
+// SIGN UP
+export type ActionSignUp = {
+  type: '@@awsCognito/SIGN_UP',
+  payload: PayloadSignUp,
+};
+
+export type ActionSignUpFailed = {
+  type: '@@awsCognito/SIGN_UP_FAILED',
+  payload?: PayloadSetState,
+};
+
+export type ActionSignUpSuccess = {
+  type: '@@awsCognito/SIGN_UP_SUCCESS',
+  payload?: PayloadSetState,
+};
+
+// RESET STATE
+// TODO remove this once we get event sourcing in place
+export type ActionResetState = {
+  type: '@@awsCognito/RESET_STATE',
+  payload?: PayloadSetState,
+};
+
+// SET STATE
+// TODO remove this once we get event sourcing in place
+export type ActionSetState = {
+  type: '@@awsCognito/SET_STATE',
+  payload: PayloadSetState,
+};
+
+/**
+ * Action Union Type
+ */
 
 export type Action =
   // | ConfirmRegistrationAction
-  | InitAction
-  | LogInAction
-  | LogOutAction
-  | ResetStateAction
-  | SetStateAction
-  | SignUpAction
-  | SignedInAction;
+  | ActionLoadSession
+  | ActionLoadSessionFailed
+  | ActionLoadSessionSuccess
+  | ActionLogIn
+  | ActionLogInFailed
+  | ActionLogInSuccess
+  | ActionLogOut
+  | ActionLogOutFailed
+  | ActionLogOutSuccess
+  | ActionResetState
+  | ActionSetState
+  | ActionSignUp
+  | ActionSignUpFailed
+  | ActionSignUpSuccess;
