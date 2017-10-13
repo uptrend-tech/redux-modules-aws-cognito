@@ -26,24 +26,10 @@ import * as actions from './actions';
 // eslint-disable-next-line no-unused-vars
 function* loadSession(action: ActionLoadSession) {
   try {
-    yield call([console, console.log], 'awsCog::loadSession:0');
-    yield put(actions.setState({ isAuthenticating: true }));
-
-    yield call([console, console.log], 'awsCog::loadSession:1');
-    const session = yield call(getSession);
-    yield call([console, console.log], 'session', session);
-
-    yield call([console, console.log], 'awsCog::loadSession:2');
+    yield call(getSession);
     const user = yield call([config, config.getUser]);
-    yield call([console, console.log], 'user', user);
-
-    // yield call(refreshCredentials);
-
-    yield call([console, console.log], 'awsCog::loadSession:3', { user });
-    // console.log('awsCog::loadSession:3', { user });
     yield put(actions.loadSessionSuccess({ info: user }));
   } catch (e) {
-    // not signed in
     yield put(actions.loadSessionFailed(e));
   }
 }
