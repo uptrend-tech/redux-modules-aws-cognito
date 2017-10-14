@@ -49,6 +49,7 @@
   "dependencies": {
     "amazon-cognito-identity-js": "^1.21.0",
     "aws-sdk": "^2.128.0",
+    "ramda": "^0.24.1",
     "redux": "^3.7.2",
     "redux-saga": "^0.15.6",
     "reselect": "^3.0.1"

@@ -1,5 +1,6 @@
 // @flow
 
+import R from 'ramda';
 import { createSelector } from 'reselect';
 
 import type { State } from './types';
@@ -46,11 +47,11 @@ export const info = createSelector(
   (state: State = initialState) => state.info,
 );
 
-export const pool = createSelector([info], info => info.pool);
+export const pool = createSelector([info], R.path(['pool']));
 
-export const poolClientId = createSelector([pool], pool => pool.clientId);
+export const poolClientId = createSelector([pool], R.path(['clientId']));
 
-export const poolStorage = createSelector([pool], pool => pool.storage);
+export const poolStorage = createSelector([pool], R.path(['storage']));
 
 // TODO remove this redux state example after loadSession works
 // info>pool:
@@ -72,7 +73,7 @@ export const poolStorageClientIdKeyPrefix = createSelector(
 
 export const lastAuthUser = createSelector(
   [poolStorage, poolStorageClientIdKeyPrefix],
-  (storage, keyPrefix) => storage[`${keyPrefix}.LastAuthUser`],
+  (storage, keyPrefix) => R.path([`${keyPrefix}.LastAuthUser`])(storage),
 );
 
 export const poolStorageLastAuthUserKeyPrefix = createSelector(
@@ -85,17 +86,17 @@ export const poolStorageLastAuthUserKeyPrefix = createSelector(
  **/
 export const lastAuthUserAccessToken = createSelector(
   [poolStorage, poolStorageLastAuthUserKeyPrefix],
-  (storage, keyPrefix) => storage[`${keyPrefix}.accessToken`],
+  (storage, keyPrefix) => R.path([`${keyPrefix}.accessToken`])(storage),
 );
 
 export const lastAuthUserIdToken = createSelector(
   [poolStorage, poolStorageLastAuthUserKeyPrefix],
-  (storage, keyPrefix) => storage[`${keyPrefix}.idToken`],
+  (storage, keyPrefix) => R.path([`${keyPrefix}.idToken`])(storage),
 );
 
 export const lastAuthUserRefreshToken = createSelector(
   [poolStorage, poolStorageLastAuthUserKeyPrefix],
-  (storage, keyPrefix) => storage[`${keyPrefix}.refreshToken`],
+  (storage, keyPrefix) => R.path([`${keyPrefix}.refreshToken`])(storage),
 );
 
 export const user = createSelector([info], info => info.user);
@@ -134,23 +135,26 @@ export const userSessionRefreshToken = createSelector(
 /**
  * DEFAULT SESSION TOKENS
  *
+ * NOTE setting this up to return userSession tokens if available and then return
+ *      lastAuthUser tokens if not.
+ *
  * NOTE for now I am using what is in storage pool until I understand how to
  *      properly use tokens in different scenarios (loading session from local
  *      storage & logging in)
  **/
-export const userIdToken = createSelector(
-  [lastAuthUserIdToken],
-  idToken => idToken,
+export const userAccessToken = createSelector(
+  [userSessionAccessToken, lastAuthUserAccessToken],
+  (userSessionToken, lastAuthToken) => userSessionToken || lastAuthToken,
 );
 
-export const userAccessToken = createSelector(
-  [lastAuthUserAccessToken],
-  accessToken => accessToken,
+export const userIdToken = createSelector(
+  [userSessionIdToken, lastAuthUserIdToken],
+  (userSessionToken, lastAuthToken) => userSessionToken || lastAuthToken,
 );
 
 export const userRefreshToken = createSelector(
-  [lastAuthUserRefreshToken],
-  refreshToken => refreshToken,
+  [userSessionRefreshToken, lastAuthUserRefreshToken],
+  (userSessionToken, lastAuthToken) => userSessionToken || lastAuthToken,
 );
 
 export const userTokens = createSelector(

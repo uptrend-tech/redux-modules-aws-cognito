@@ -34,13 +34,16 @@ USER SESSION
 
 USER SESSION TOKENS
 
-### userIdToken
+### userAccessToken
 
 DEFAULT SESSION TOKENS
 
 NOTE for now I am using what is in storage pool until I understand how to
      properly use tokens in different scenarios (loading session from local
      storage & logging in)
+
+NOTE setting this up to return userSession tokens if available and then return
+     lastAuthUser tokens if not.
 
 ### State
 
