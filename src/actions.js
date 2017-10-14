@@ -63,11 +63,8 @@ export const logOutFailed = (payload: PayloadSetState): ActionLogOutFailed => ({
   payload,
 });
 
-export const logOutSuccess = (
-  payload: PayloadSetState,
-): ActionLogOutSuccess => ({
+export const logOutSuccess = (): ActionLogOutSuccess => ({
   type: '@@awsCognito/LOG_OUT_SUCCESS',
-  payload,
 });
 
 export const resetState = (payload?: PayloadSetState): ActionResetState => ({

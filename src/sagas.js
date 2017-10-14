@@ -11,7 +11,6 @@ import {
   authSignOut,
   getSession,
   config,
-  refreshCredentials,
 } from './aws-cognito-promises';
 
 import type {
@@ -50,8 +49,9 @@ function* signUp(action: ActionSignUp) {
 function* logOut(action: ActionLogOut) {
   try {
     yield call(authSignOut);
+    yield put(actions.logOutSuccess());
   } catch (e) {
-    yield put(actions.resetState({ error: e }));
+    yield put(actions.logOutFailed(e));
   }
 }
 

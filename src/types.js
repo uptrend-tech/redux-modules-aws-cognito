@@ -106,7 +106,6 @@ export type ActionLogOutFailed = {
 
 export type ActionLogOutSuccess = {
   type: '@@awsCognito/LOG_OUT_SUCCESS',
-  payload?: PayloadSetState,
 };
 
 // SIGN UP
