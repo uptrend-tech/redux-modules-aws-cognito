@@ -58,7 +58,6 @@ function* logOut(action: ActionLogOut) {
 function* logIn(action: ActionLogIn) {
   try {
     const { email, password, code } = action.payload;
-    console.log('saga:logIn', { email, password, code }, { action });
 
     if (code) {
       yield call(confirmation, email, code);
@@ -68,7 +67,7 @@ function* logIn(action: ActionLogIn) {
     user = yield call(getLocalUser);
     yield put(actions.logInSuccess({ info: user }));
   } catch (e) {
-    console.trace(e);
+    // console.trace(e);
     if (
       e.code === 'UserNotConfirmedException' ||
       e.code === 'CodeMismatchException'
