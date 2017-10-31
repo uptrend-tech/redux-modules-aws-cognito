@@ -21,6 +21,22 @@ const reducer = (state: State = initialState, action: Action): State => {
         // needConfirmCode: false,
       };
 
+    case '@@awsCognito/LOG_IN_REQUIRE_NEW_PASSWORD':
+      return {
+        ...state,
+        error: {
+          ...state.error,
+          needNewPassword: {
+            ...action.payload,
+          },
+        },
+        isAuthenticated: false,
+        isAuthenticating: false,
+        needNewPassword: true,
+        hasSignedUp: true,
+        isConfirmed: true,
+      };
+
     case '@@awsCognito/LOAD_SESSION_SUCCESS':
     case '@@awsCognito/LOG_IN_SUCCESS':
       return {
@@ -28,6 +44,7 @@ const reducer = (state: State = initialState, action: Action): State => {
         ...action.payload,
         isAuthenticated: true,
         isAuthenticating: false,
+        needNewPassword: false,
       };
 
     case '@@awsCognito/LOG_OUT':

@@ -13,6 +13,8 @@ export const initialState: State = {
   isConfirmed: false,
   isAuthenticated: false,
   needConfirmCode: false,
+  needMFA: false,
+  needNewPassword: false,
 };
 
 export const cognitoState = (state: { cognito: State }): State => state.cognito;

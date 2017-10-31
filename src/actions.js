@@ -7,6 +7,8 @@ import type {
   ActionLogIn,
   ActionLogInFailed,
   ActionLogInSuccess,
+  ActionLogInRequireNewPassword,
+  ActionLogInRequireMFA,
   ActionLogOut,
   ActionLogOutFailed,
   ActionLogOutSuccess,
@@ -15,6 +17,8 @@ import type {
   ActionSignUp,
   // ActionSignUpFailed,
   // ActionSignUpSuccess,
+  PayloadLogInRequireMFA,
+  PayloadLogInRequireNewPassword,
   PayloadLogIn,
   PayloadSetState,
   PayloadSignUp,
@@ -50,6 +54,20 @@ export const logInFailed = (payload: PayloadSetState): ActionLogInFailed => ({
 
 export const logInSuccess = (payload: PayloadSetState): ActionLogInSuccess => ({
   type: '@@awsCognito/LOG_IN_SUCCESS',
+  payload,
+});
+
+export const logInRequireMFA = (
+  payload: PayloadLogInRequireMFA,
+): ActionLogInRequireMFA => ({
+  type: '@@awsCognito/LOG_IN_REQUIRE_MFA',
+  payload,
+});
+
+export const logInRequireNewPassword = (
+  payload: PayloadLogInRequireNewPassword,
+): ActionLogInRequireNewPassword => ({
+  type: '@@awsCognito/LOG_IN_REQUIRE_NEW_PASSWORD',
   payload,
 });
 

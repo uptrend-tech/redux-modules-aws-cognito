@@ -57,9 +57,10 @@ function* logOut(action: ActionLogOut) {
 
 function* logIn(action: ActionLogIn) {
   try {
-    const { email, password, code } = action.payload;
-    console.log('saga:logIn', { email, password, code }, { action });
+    const { email, password, code, newPassword } = action.payload;
 
+    if (newPassword) {
+    }
     if (code) {
       yield call(confirmation, email, code);
     }
@@ -68,8 +69,14 @@ function* logIn(action: ActionLogIn) {
     user = yield call(getLocalUser);
     yield put(actions.logInSuccess({ info: user }));
   } catch (e) {
-    console.trace(e);
-    if (
+    if (e.name === 'LogInRequireNewPasswordError') {
+      yield put(
+        actions.logInRequireNewPassword({
+          userAttributes: e.userAttributes,
+          requiredAttributes: e.requiredAttributes,
+        }),
+      );
+    } else if (
       e.code === 'UserNotConfirmedException' ||
       e.code === 'CodeMismatchException'
     ) {

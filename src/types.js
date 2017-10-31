@@ -21,6 +21,8 @@ export type State = {
   +isConfirmed: boolean,
   +isAuthenticated: boolean,
   +needConfirmCode: boolean,
+  +needMFA: boolean,
+  +needNewPassword: boolean,
 };
 
 /**
@@ -31,6 +33,16 @@ export type PayloadLogIn = {
   email: string,
   password: string,
   code?: string,
+  newPassword?: string,
+};
+
+export type PayloadLogInRequireMFA = {
+  codeDeliveryDetails: {},
+};
+
+export type PayloadLogInRequireNewPassword = {
+  userAttributes: {},
+  requiredAttributes: {},
 };
 
 export type PayloadSetState = {
@@ -50,6 +62,8 @@ export type PayloadSetState = {
   +isConfirmed?: boolean,
   +isAuthenticated?: boolean,
   +needConfirmCode?: boolean,
+  +needMFA?: boolean,
+  +needNewPassword?: boolean,
 };
 
 export type PayloadSignUp = {
@@ -92,6 +106,17 @@ export type ActionLogInFailed = {
 export type ActionLogInSuccess = {
   type: '@@awsCognito/LOG_IN_SUCCESS',
   payload?: PayloadSetState,
+};
+
+// LOG IN MORE DATA REQUIRED
+export type ActionLogInRequireMFA = {
+  type: '@@awsCognito/LOG_IN_REQUIRE_MFA',
+  payload?: PayloadLogInRequireMFA,
+};
+
+export type ActionLogInRequireNewPassword = {
+  type: '@@awsCognito/LOG_IN_REQUIRE_NEW_PASSWORD',
+  payload: PayloadLogInRequireNewPassword,
 };
 
 // LOG OUT
@@ -150,6 +175,8 @@ export type Action =
   | ActionLogIn
   | ActionLogInFailed
   | ActionLogInSuccess
+  | ActionLogInRequireMFA
+  | ActionLogInRequireNewPassword
   | ActionLogOut
   | ActionLogOutFailed
   | ActionLogOutSuccess
